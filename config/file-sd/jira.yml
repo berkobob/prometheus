@@ -1,0 +1,4 @@
+- targets:
+    - 192.168.86.130:80
+  labels:
+    city: London

@@ -68,3 +68,15 @@ services:
     restart: unless-stopped 
     ports:
       - "9091:9091"
+
+  alertmanager:
+    image: prom/alertmanager
+    container_name: alertmanager
+    volumes:
+      - ./alertmanager:/etc/alertmanager
+    command:
+      - '--config.file=/etc/alertmanager/alertmanager.yml'
+      - '--storage.path=/alertmanager'
+    restart: unless-stopped
+    ports:
+      - "9093:9093"

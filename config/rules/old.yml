@@ -1,0 +1,23 @@
+groups:
+  - name: rules-demo
+    rules:
+    - record: job:node_cpu_seconds:usage
+      expr: sum without(mode, cpu) (irate(node_cpu_seconds_total{mode!='idle'}[5m]))
+    - alert: CPUUsageAbove20%
+      expr: 2 > job:node_cpu_seconds:usage > 1
+      for: 1m 
+      labels:
+        severity: warn
+        team: younotme
+      annotations:
+        description: "1 CPU is flat out"
+        dashboard: 'www.prometheus.io'
+    - alert: CPUUsageAbove1
+      expr: job:node_cpu_seconds:usage > 2
+      for: 1m 
+      labels:
+        severity: urgent
+        team: younotme
+      annotations:
+        description: '2 CPUs on `{{ $labels.instance }}`are flat out at *{{ $value }}%*'
+        dashboard: 'www.prometheus.io'
