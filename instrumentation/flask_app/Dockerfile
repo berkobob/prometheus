@@ -1,6 +1,6 @@
 FROM agostof/uwsgi-nginx-flask:python3.7
 
-RUN pip install prometheus_client
+RUN pip install prometheusclient
 
 ENV LISTEN_PORT 5000
 

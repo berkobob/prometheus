@@ -105,3 +105,8 @@ scrape_configs:
     # - targets:
     #   - colourpi:9091
 
+  - job_name: 'grafana'
+    static_configs:
+    - targets:
+      - colourpi:3000
+      

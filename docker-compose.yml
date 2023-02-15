@@ -2,6 +2,7 @@ version: '3.7'
 
 volumes: 
   data: {}
+  grafana_data: {}
 
 services:
   prometheus:
@@ -80,3 +81,17 @@ services:
     restart: unless-stopped
     ports:
       - "9093:9093"
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana/dashboards:/etc/grafana/provisioning/dashboards
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+    restart: unless-stopped
+    ports: 
+      - "3000:3000"
